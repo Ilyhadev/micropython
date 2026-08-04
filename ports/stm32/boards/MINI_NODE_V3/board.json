@@ -1,0 +1,11 @@
+{
+    "deploy": ["../deploy.md"],
+    "docs": "",
+    "features": [],
+    "images": [],
+    "mcu": "stm32g0",
+    "product": "Mini V3",
+    "thumbnail": "",
+    "url": "https://docs.raccoonlab.co/guide/can_pwm/mini_v3.html",
+    "vendor": "RacoonLab"
+}

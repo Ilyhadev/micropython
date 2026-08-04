@@ -1,0 +1,16 @@
+*MicroPython sizes*
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  ls -l ports/stm32/build-MINI_NODE_V3/*.bin
+-rwxrwxr-x 1 ilia ilia 296432 May  1 17:48 ports/stm32/build-MINI_NODE_V3/firmware.bin
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  ls -l ports/stm32/build-MINI_NODE_V3/*.elf
+-rwxrwxr-x 1 ilia ilia 515248 May  1 17:48 ports/stm32/build-MINI_NODE_V3/firmware.elf
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master 
+
+*C bare metal sizes*
+18:28:03 **** Incremental Build of configuration Debug for project compare_micropython ****
+make -j16 all
+arm-none-eabi-size  compare_micropython.elf
+   text	   data	    bss	    dec	    hex	filename
+  41812	    468	   2132	  44412	   ad7c	compare_micropython.elf
+Finished building: default.size.stdout
+
+18:28:03 Build Finished. 0 errors, 0 warnings. (took 141ms)

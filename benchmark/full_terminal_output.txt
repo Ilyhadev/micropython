@@ -1,0 +1,131 @@
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  mpremote connect /dev/ttyUSB0 cp benchmark/benches_adv.py :benchmark.py
+cp benchmark/benches_adv.py :benchmark.py
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  mpy-cross/build/mpy-cross -O3 -march=armv6m benchmark/benches_adv.py
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  mpremote connect /dev/ttyUSB0 cp benchmark/benches_adv.mpy :benchmark_compiled.mpy
+cp benchmark/benches_adv.mpy :benchmark_compiled.mpy
+(.venv)  ilia@AsusTuf  ~/Desktop/vsCode/microPython/micropython   master  tio /dev/ttyUSB0 -b 115200
+[17:10:47.045] tio v2.7
+[17:10:47.045] Press ctrl-t q to quit
+[17:10:47.046] Connected
+import os
+def get_sizes():
+     files = ['benches.py', 'benchmark_compiled.mpy']
+     for f in files:
+        try:
+            size = os.stat(f)[6] # Index 6 is the file size in bytes
+            print(f"{f}: {size} bytes")
+        except OSError:
+            print(f"{f} not found")
+>>> import benchmark
+>>> import benchmark_compiled
+>>> import os
+>>> def get_sizes():
+...     files = ['benchmark.py', 'benchmark_compiled.mpy']
+...     for f in files:
+...         try:
+...             size = os.stat(f)[6] # Index 6 is the file size in bytes
+...             print(f"{f}: {size} bytes")
+...         except OSError:
+...             print(f"{f} not found")
+...
+>>> get_sizes()
+benchmark.py: 4374 bytes
+benchmark_compiled.mpy: 2249 bytes
+>>> benchmark.run_all()
+Starting MicroPython Benchmarks on STM32G0B1...
+
+=====
+1. GPIO Toggle Speed (CPU Bound)
+=====
+Iterations: 100000
+Time taken: 3525398 us
+Estimated Output Frequency: 28366 Hz
+-> Note: This measures the VM overhead of fetching the 'on'/'off' attributes and executing the bytecode loop.
+
+=====
+2. Math Overhead: Direct Euler Angles (RPY)
+=====
+Iterations: 1000 RPY calculations
+Time taken: 332843 us
+Time per calculation: 332.84 us
+
+=====
+3. Memory Allocation & String Formatting (BMS Simulation)
+=====
+Iterations: 5000 format cycles
+Time taken: 24854209 us
+Heap before: 105984 B, Heap after (before GC): 70608 B
+
+=====
+4. Array Packing Speed
+=====
+Iterations: 5000 struct packing cycles
+Time taken: 140329 us
+
+=====
+5. GPIO Toggle Speed on direct register access optimized
+=====
+Iterations: 100000
+Time taken: 2607305 us
+Estimated Output Frequency: 38354 Hz
+
+=====
+6. GPIO Toggle Speed on direct register access
+=====
+Iterations: 100000
+Time taken: 5532059 us
+Estimated Output Frequency: 18076 Hz
+>>> benchmark_compiled.run_all()
+Starting MicroPython Benchmarks on STM32G0B1...
+
+=====
+1. GPIO Toggle Speed (CPU Bound)
+=====
+Iterations: 100000
+Time taken: 3525398 us
+Estimated Output Frequency: 28366 Hz
+-> Note: This measures the VM overhead of fetching the 'on'/'off' attributes and executing the bytecode loop.
+
+=====
+2. Math Overhead: Direct Euler Angles (RPY)
+=====
+Iterations: 1000 RPY calculations
+Time taken: 332843 us
+Time per calculation: 332.84 us
+
+=====
+3. Memory Allocation & String Formatting (BMS Simulation)
+=====
+Iterations: 5000 format cycles
+Time taken: 24854751 us
+Heap before: 105984 B, Heap after (before GC): 70608 B
+
+=====
+4. Array Packing Speed
+=====
+Iterations: 5000 struct packing cycles
+Time taken: 512261 us
+
+=====
+5. GPIO Toggle Speed on direct register access optimized
+=====
+Iterations: 100000
+Time taken: 2607306 us
+Estimated Output Frequency: 38354 Hz
+
+=====
+6. GPIO Toggle Speed on direct register access
+=====
+Iterations: 100000
+Time taken: 5532058 us
+Estimated Output Frequency: 18076 Hz
+>>>
+*Here i changed firmware on C*
+[17:16:25.469] Disconnected
+[17:16:26.471] Warning: Could not open tty device (No such file or directory)
+[17:16:26.471] Waiting for tty device..
+[17:16:27.473] Connected
+Cycles gpio: 2202793
+Cycles fp math: 12229113
+Cycles fmt string: 693759144
+Cycles struct pack: 1036293
